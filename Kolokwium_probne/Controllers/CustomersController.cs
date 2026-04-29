@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kolokwium_probne.Controllers;
-
+[ApiController]
 [Route("api/[controller]")]
 public class CustomersController : ControllerBase
 {
@@ -43,7 +43,7 @@ public class CustomersController : ControllerBase
 
         try
         {
-            await _dbService.CreateRentalWithMoviesAsync(id, dto);
+            await _dbService.CreateRentalDetailsAsync(id, dto);
             return Created($"api/customers/{id}/rentals", dto);
         }
         catch (NotFoundException e)
@@ -52,9 +52,9 @@ public class CustomersController : ControllerBase
         }
     }
 
-    [Route("{id}/rentals/rentalsId")]
+    [Route("{id}/rentals/{rentalId}")]
     [HttpDelete]
-    public async Task<IActionResult> Delete([FromRoute] int id, [FromRoute] int RentalId)
+    public async Task<IActionResult> Delete([FromRoute] int id, [FromRoute] int rentalId)
     {
         try
         {

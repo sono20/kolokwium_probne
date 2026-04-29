@@ -4,7 +4,7 @@ using Kolokwium_probne.Exceptions;
 
 namespace Kolokwium_probne.Services;
 
-public class DbService
+public class DbService : IDbService
 {
     private readonly string _connectionString;
     public DbService(IConfiguration configuration)

@@ -1,5 +1,8 @@
-var builder = WebApplication.CreateBuilder(args);
+using Kolokwium_probne.Services;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddScoped<IDbService, DbService>();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -8,9 +11,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(opt =>
+    {
+        opt.SwaggerEndpoint("/openapi/v1.json", "Kolokwium_probne API V1");
+    });
 }
 
-app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 
 
 app.Run();
